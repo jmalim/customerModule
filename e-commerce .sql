@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2019 at 04:41 AM
+-- Generation Time: Mar 21, 2019 at 05:09 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.1.23
 
@@ -74,6 +74,8 @@ INSERT INTO `courier` (`courier_id`, `courier_name`, `courier_date`, `courier_st
 
 CREATE TABLE `customers` (
   `cus_id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(32) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `middle_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
@@ -90,9 +92,9 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`cus_id`, `first_name`, `middle_name`, `last_name`, `contact_num`, `cus_street`, `cus_city`, `cus_province`, `cus_postal`, `cus_email`, `date_created`) VALUES
-(1003, 'Analita', 'Ohay', 'Autida', 1111111111, 'Purok 4B, Gusa', 'Cagayan de Oro City', 'Misamis Oriental', '9000', 'autidaanalita@gmail.com', NULL),
-(1004, 'Janeth', 'M', 'Alim', 98675424, 'Nazareth', 'Cagayan De Oro City', 'Misamis Oriental', '9000', 'alimkh0leetsz@gmail.com', NULL);
+INSERT INTO `customers` (`cus_id`, `username`, `password`, `first_name`, `middle_name`, `last_name`, `contact_num`, `cus_street`, `cus_city`, `cus_province`, `cus_postal`, `cus_email`, `date_created`) VALUES
+(1003, 'analita123', 'ilovekeng', 'Analita', 'Ohay', 'Autida', 1111111111, 'Purok 4B, Gusa', 'Cagayan de Oro City', 'Misamis Oriental', '9000', 'autidaanalita@gmail.com', NULL),
+(1004, 'tazyang', '123456', 'Jeanette', 'M', 'Alim', 98675424, 'Nazareth', 'Cagayan De Oro City', 'Misamis Oriental', '9000', 'tazeetwenieyt@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -114,27 +116,6 @@ CREATE TABLE `delivery` (
 
 INSERT INTO `delivery` (`delivery_id`, `delivery_date`, `delivery_status`, `order_id`, `courier_id`) VALUES
 (1, '2019-03-13 15:11:39', 'Shipped', 1, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `login`
---
-
-CREATE TABLE `login` (
-  `cus_id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(32) NOT NULL,
-  `access_level_id` int(11) NOT NULL,
-  `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `login`
---
-
-INSERT INTO `login` (`cus_id`, `username`, `password`, `access_level_id`, `last_login`) VALUES
-(1003, '', 'ilovekeng', 1, '2019-03-13 14:58:38');
 
 -- --------------------------------------------------------
 
@@ -291,19 +272,19 @@ INSERT INTO `supplier_transaction` (`sup_transactionID`, `supplier_id`, `product
 --
 
 CREATE TABLE `users` (
-  `user_id` int(11) UNSIGNED NOT NULL,
+  `cus_id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(32) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `access_level_id` int(11) NOT NULL,
   `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `last_login`) VALUES
-(1, 'analita69', 'ilovekeng', 'analoveskeng@gmail.com', '2019-03-13 14:58:38');
+INSERT INTO `users` (`cus_id`, `username`, `password`, `access_level_id`, `last_login`) VALUES
+(1003, 'analita123', 'ilovekeng', 1, '2019-03-13 14:58:38');
 
 --
 -- Indexes for dumped tables
@@ -336,13 +317,6 @@ ALTER TABLE `delivery`
   ADD PRIMARY KEY (`delivery_id`),
   ADD KEY `order_id` (`order_id`),
   ADD KEY `courier_id` (`courier_id`);
-
---
--- Indexes for table `login`
---
-ALTER TABLE `login`
-  ADD PRIMARY KEY (`last_login`) USING BTREE,
-  ADD KEY `cus_id` (`cus_id`);
 
 --
 -- Indexes for table `orders`
@@ -397,8 +371,8 @@ ALTER TABLE `supplier_transaction`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`),
-  ADD KEY `last_login` (`last_login`);
+  ADD PRIMARY KEY (`last_login`) USING BTREE,
+  ADD KEY `cus_id` (`cus_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -476,12 +450,6 @@ ALTER TABLE `delivery`
   ADD CONSTRAINT `delivery_ibfk_2` FOREIGN KEY (`courier_id`) REFERENCES `courier` (`courier_id`);
 
 --
--- Constraints for table `login`
---
-ALTER TABLE `login`
-  ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`cus_id`) REFERENCES `customers` (`cus_id`);
-
---
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
@@ -518,7 +486,7 @@ ALTER TABLE `supplier_transaction`
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`last_login`) REFERENCES `login` (`last_login`);
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`cus_id`) REFERENCES `customers` (`cus_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
