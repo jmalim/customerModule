@@ -1,0 +1,4 @@
+Business Rules for Customer
+
+1.Customers can have one or many orders.
+2.Orders may have one or many customers.
