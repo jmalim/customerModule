@@ -1,0 +1,14 @@
+customers
+--------------
+cus_id INT(11)
+userid INT(11)
+first_name VARCHAR(50)
+middle_name VARCHAR(50)
+last_name VARCHAR(50)
+contact_num INT(11)
+cus_street VARCHAR(255)
+cus_city VARCHAR(255)
+cus_province VARCHAR(255)
+cus_postal VARCHAR(45)
+cus_email VARCHAR(45)
+date_created TIMESTAMP
