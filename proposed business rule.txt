@@ -1,0 +1,29 @@
+original:
+6. A customer may have zero or many orders.
+
+proposed1:
+6. A potential customer may have zero or many orders.
+
+proposed2:
+6. A customer may have one or many orders.
+
+-I guess you can't consider a window shopper as customer without buying anything, since according to different sources, 
+
+customer - *a person or an organization that buys something from a shop/store or business* - OALD 
+customer - *someone who buys goods or services from a business.* -MW 
+customer - *a person who buys - Collins
+
+#####################################################
+
+
+* An order may only be done by a customer.
+* A customer may have zero or many billing.
+* A billing may be done to a customer.
+* A customer may only have one account.
+* An account may be owned by only one customer.
+* A supplier may only have one account.
+* An account may be owned by only a supplier.
+* A courier may only have one account.
+* An account may be owned by only one courier.
+* A delivery can be done by only one courier.
+
